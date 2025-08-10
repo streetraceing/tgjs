@@ -1,0 +1,52 @@
+{
+    "name": "@streetraceing/tgjs",
+    "version": "1.0.5",
+    "author": "streetraceing",
+    "description": "tgjs is a typeScript library for interacting with the Telegram Bot API",
+    "license": "MIT",
+    "keywords": [
+        "telegram",
+        "bot",
+        "typescript",
+        "api"
+    ],
+
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "require": "./dist/index.js",
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "engines": {
+        "node": ">=18"
+    },
+
+    "scripts": {
+        "build": "tsc & tsc-alias"
+    },
+
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/streetraceing/tgjs.git"
+    },
+    "bugs": {
+        "url": "https://github.com/streetraceing/tgjs/issues"
+    },
+    "homepage": "https://github.com/streetraceing/tgjs#readme",
+
+    "dependencies": {
+        "axios": "^1.11.0",
+        "chalk": "^5.5.0"
+    },
+    "devDependencies": {
+        "@types/node": "^24.2.1",
+        "tsc-alias": "^1.8.16",
+        "typescript": "^5.9.2"
+    }
+}
