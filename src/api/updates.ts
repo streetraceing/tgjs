@@ -2,7 +2,6 @@ import axios from "axios"
 
 import { Client } from "@/api/client"
 import { Update } from "@/types/telegram"
-import { RequestError } from "@/lib/errors"
 import { LongpollOptions, WebhookOptions } from "@/types/client"
 import { createServer, IncomingMessage, ServerResponse } from "http"
 import { joinUrl } from "@/lib/util"
