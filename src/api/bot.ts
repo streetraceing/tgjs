@@ -21,16 +21,23 @@ export class Bot {
         await this.initPromise
     }
 
-    /** Sending requests via the Telegram API */
     async request<M extends keyof TelegramMethodMap>(
         method: M,
         ...args: SmartArgsWithoutConfig<M>
     ): Promise<ReturnOf<TelegramMethodMap[M]>> {
         await this.ready()
-        return this.client.request(method, ...args)
+
+        let response
+
+        try {
+            response = await this.client.request(method, ...args)
+        } catch (err) {
+            this.client.logger.error({ module: "bot", text: `${err}` })
+        }
+
+        return response!
     }
 
-    /** Registration for the event */
     on<E extends keyof TelegramEventMap>(
         event: E,
         listener: (
@@ -41,15 +48,15 @@ export class Bot {
     ) {
         this.ready().then(() => {
             this.client.on<E>(event, (raw: TelegramEventMap[E] & { update_id: number }) => {
-                let result: any = raw;
+                let result: any = raw
 
                 if (event in ContextClassMap) {
-                    const CtxClass = ContextClassMap[event as keyof typeof ContextClassMap];
-                    result = new (CtxClass as any)(raw, raw.update_id, this.client);
+                    const CtxClass = ContextClassMap[event as keyof typeof ContextClassMap]
+                    result = new (CtxClass as any)(raw, raw.update_id, this.client)
                 }
 
-                listener(result);
-            });
-        });
+                listener(result)
+            })
+        })
     }
 }
