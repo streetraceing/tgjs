@@ -244,7 +244,7 @@ export type InaccessibleMessage = {
 export type MessageEntityType = "mention" | "hashtag" | "cashtag" | "bot_command" | "url" | "email" | "phone_number" | "bold" | "italic" | "underline" | "strikethrough" | "spoiler" | "code" | "pre" | "text_link" | "text_mention" | "custom_emoji"
 
 export type MessageEntity = {
-    type: string
+    type: MessageEntityType
     offset: number
     length: number
     url?: string
@@ -769,7 +769,7 @@ export type KeyboardButtonRequestChat = {
 }
 
 export type KeyboardButtonPollType = {
-    type?: string
+    type?: "quiz" | "regular"
 }
 
 export type ReplyKeyboardRemove = {
