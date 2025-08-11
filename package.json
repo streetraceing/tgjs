@@ -1,6 +1,6 @@
 {
     "name": "@streetraceing/tgjs",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "author": "streetraceing",
     "description": "tgjs is a typeScript library for interacting with the Telegram Bot API",
     "license": "MIT",
@@ -26,7 +26,8 @@
         "node": ">=18"
     },
     "scripts": {
-        "build": "tsc & tsc-alias"
+        "build": "tsc & tsc-alias",
+        "patch": "cmd /c scripts\\patch.bat"
     },
     "repository": {
         "type": "git",
