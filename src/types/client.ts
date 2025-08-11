@@ -2,8 +2,6 @@ import { ArgsOf, RequiredKeys } from "@/types/util"
 import { TelegramMethodMap } from "@/types/telegram/methods"
 import { LoggerParams } from "@/lib/logger"
 
-export type BotUpdatesMethod = "longpoll" | "webhook"
-
 export type LongpollOptions = ArgsOf<TelegramMethodMap["getUpdates"]>
 
 export type WebhookOptions = Omit<ArgsOf<TelegramMethodMap["setWebhook"]>, "url"> & {

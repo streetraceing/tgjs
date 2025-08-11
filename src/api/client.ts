@@ -56,7 +56,9 @@ export class Client {
     }
 
     private async init(): Promise<void> {
-        const me = await this.request("getMe")
+        const me = await this.request("getMe", {
+            config: {}
+        })
         this.logger.debug({ text: `Username: ${me.username} | Id: ${me.id}`, module: "bot" })
 
         switch (this.options.updates?.method) {
@@ -107,9 +109,11 @@ export class Client {
     ): Promise<ReturnOf<TelegramMethodMap[M]>>
 
     async request(method: any, ...args: any[]): Promise<any> {
-        let payload = args[0] ?? {},
+        let input = args[0] ?? {},
             url = joinUrl(this.botApiUrl, method),
             res
+
+        let payload = { ...input, config: undefined }
 
         this.logger.debug({
             text: `<yellow>POST</yellow> ${url} <gray>${JSON.stringify(payload)}</gray>`,
@@ -119,24 +123,22 @@ export class Client {
         if (Object.values(payload).some(isInputFile)) {
             const form = toFormData(payload)
             res = await axios.post(url, form, {
+                ...input.config,
                 headers: form.getHeaders(),
-                validateStatus: () => true,
+                validateStatus: () => true
             })
         } else {
             res = await axios.post(url, payload, {
+                ...input.config,
                 headers: { "Content-Type": "application/json" },
-                validateStatus: () => true,
+                validateStatus: () => true
             })
         }
 
         const data = res.data
 
         if (!data.ok) {
-            throw new RequestError(
-                Logger.secureTokens(url),
-                data.error_code,
-                data.description
-            )
+            throw new RequestError(Logger.secureTokens(url), data.error_code, data.description)
         }
 
         return data.result

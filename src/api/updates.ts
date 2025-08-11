@@ -43,7 +43,6 @@ export class Longpoll extends Updates {
         this.running = true
 
         await this.cleanWebhook()
-
         this.bot.logger.info({ text: "Longpolling started", module: "updates" })
 
         while (this.running) {
@@ -54,11 +53,13 @@ export class Longpoll extends Updates {
             try {
                 updates = await this.bot.request("getUpdates", {
                     offset: this.offset,
-                    timeout: this.options.timeout
+                    timeout: this.options.timeout,
+                    config: {
+                        signal: this.controller.signal
+                    }
                 })
             } catch (err) {
                 if (axios.isCancel(err) || (err as Error).name === "AbortError") {
-                    this.bot.logger.debug({ text: "Longpolling aborted", module: "updates" })
                     break
                 } else throw err
             }
@@ -69,7 +70,7 @@ export class Longpoll extends Updates {
             }
         }
 
-        this.bot.logger.debug({ text: "Longpolling stopped", module: "updates" })
+        this.bot.logger.info({ text: "Longpolling stopped", module: "updates" })
     }
 
     stop() {
