@@ -86,6 +86,8 @@ export class Client {
 
     private handleUpdate = async (update: Update) => {
         const { update_id } = update
+        
+        this.logger.debug({ text: `<gray>${JSON.stringify(update)}</gray>`, module: "updates" })
 
         for (const event in UpdateEventMap) {
             const payload = UpdateEventMap[event as keyof TelegramEventMap](update)
