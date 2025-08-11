@@ -5,7 +5,7 @@ import { DirectBotConstructorError, IncorrectBotOptions, RequestError } from "@/
 import { isInputFile, joinUrl, deepMerge as merge, toFormData } from "@/lib/util"
 import { ClientOptions } from "@/types/client"
 import { apiUrl, defaultBotOptions, tokenMinimalLength } from "@/lib/constants"
-import { ReturnOf, SmartArgs } from "@/types/util"
+import { ReturnOf, SmartArgsUniversal } from "@/types/util"
 import { TelegramEventMap } from "@/types/telegram/events"
 import { UpdateEventMap } from "@/types/telegram/events"
 import { TelegramMethodMap } from "@/types/telegram/methods"
@@ -107,7 +107,7 @@ export class Client {
 
     request<M extends keyof TelegramMethodMap>(
         method: M,
-        ...args: SmartArgs<M>
+        ...args: SmartArgsUniversal<M>
     ): Promise<ReturnOf<TelegramMethodMap[M]>>
 
     async request(method: any, ...args: any[]): Promise<any> {

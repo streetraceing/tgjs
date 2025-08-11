@@ -11,14 +11,19 @@ export type RequiredKeys<T> = {
     [K in keyof T]-?: {} extends Pick<T, K> ? never : K
 }[keyof T]
 
-export type WithConfig<T> = T extends undefined
-    ? { config?: AxiosRequestConfig }
-    : T & { config?: AxiosRequestConfig }
+export type SmartArgsWithoutConfig<M extends keyof TelegramMethodMap> =
+    RequiredKeys<ArgsOf<TelegramMethodMap[M]>> extends never
+        ? [payload?: ArgsOf<TelegramMethodMap[M]>]
+        : [payload: ArgsOf<TelegramMethodMap[M]>]
 
 export type SmartArgs<M extends keyof TelegramMethodMap> =
     RequiredKeys<ArgsOf<TelegramMethodMap[M]>> extends never
-    ? [payload?: WithConfig<ArgsOf<TelegramMethodMap[M]>>]
-    : [payload: WithConfig<ArgsOf<TelegramMethodMap[M]>>]
+        ? [payload?: ArgsOf<TelegramMethodMap[M]> & { config?: AxiosRequestConfig }]
+        : [payload: ArgsOf<TelegramMethodMap[M]> & { config?: AxiosRequestConfig }]
+
+export type SmartArgsUniversal<M extends keyof TelegramMethodMap> =
+    | SmartArgs<M>
+    | SmartArgsWithoutConfig<M>
 
 export type DeepPartial<T> = {
     [K in keyof T]?: T[K] extends object

@@ -2,7 +2,7 @@ import { Client } from "@/api/client"
 import { ClientOptions } from "@/types/client"
 import { TelegramEventMap } from "@/types/telegram/events"
 import { TelegramMethodMap } from "@/types/telegram/methods"
-import { ReturnOf, SmartArgs } from "@/types/util"
+import { ReturnOf, SmartArgsWithoutConfig } from "@/types/util"
 import { ContextClassMap } from "@/types/telegram/context"
 
 export class Bot {
@@ -24,7 +24,7 @@ export class Bot {
     /** Sending requests via the Telegram API */
     async request<M extends keyof TelegramMethodMap>(
         method: M,
-        ...args: SmartArgs<M>
+        ...args: SmartArgsWithoutConfig<M>
     ): Promise<ReturnOf<TelegramMethodMap[M]>> {
         await this.ready()
         return this.client.request(method, ...args)
