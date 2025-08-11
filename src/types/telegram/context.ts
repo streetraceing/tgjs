@@ -74,11 +74,3 @@ export const ContextClassMap = {
     message: MessageContext,
     callback_query: CallbackQueryContext
 } as const;
-
-export const ContextFactory = {
-    message: (raw: TelegramEventMap["message"], update_id: number, bot: Client) =>
-        new MessageContext(raw, update_id, bot),
-
-    callback_query: (raw: TelegramEventMap["callback_query"], update_id: number, bot: Client) =>
-        new CallbackQueryContext(raw, update_id, bot)
-};

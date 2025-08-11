@@ -1,9 +1,9 @@
 import { Client } from "@/api/client"
 import { ClientOptions } from "@/types/client"
+import { ContextClassMap } from "@/types/telegram/context"
 import { TelegramEventMap } from "@/types/telegram/events"
 import { TelegramMethodMap } from "@/types/telegram/methods"
 import { ReturnOf, SmartArgsWithoutConfig } from "@/types/util"
-import { ContextClassMap } from "@/types/telegram/context"
 
 export class Bot {
     private client!: Client
