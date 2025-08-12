@@ -70,17 +70,8 @@ export class Bot {
         method: M,
         ...args: SmartArgsWithoutConfig<M>
     ): Promise<ReturnOf<TelegramMethodMap[M]>> {
-        await this.ready()
-
-        let response
-
-        try {
-            response = await this.#client.request(method, ...args)
-        } catch (err) {
-            this.#client.logger.error({ module: "bot", text: `${err}` })
-        }
-
-        return response!
+        await this.ready() 
+        return await this.#client.request(method, ...args)
     }
 
     on<E extends keyof BotEventMap>(
