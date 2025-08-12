@@ -18,7 +18,7 @@ const internal = Symbol('internal')
 export class Client {
     private botApiUrl: string
     private options: ClientOptions
-    private events: EventEmitter
+    private events = new EventEmitter()
 
     logger: Logger
     updates!: Updates
@@ -86,7 +86,7 @@ export class Client {
 
     private handleUpdate = async (update: Update) => {
         const { update_id } = update
-        
+
         this.logger.debug({ text: `<gray>${JSON.stringify(update)}</gray>`, module: "updates" })
 
         for (const event in UpdateEventMap) {

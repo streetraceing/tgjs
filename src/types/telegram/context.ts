@@ -1,15 +1,15 @@
-import { AllowedReaction, CallbackQuery, ChatJoinRequest, ChatMemberUpdated, InlineQuery, Message, MessageReactionUpdated, Poll, PollAnswer, PreCheckoutQuery, ShippingOption, ShippingQuery } from "@/types/telegram"
+import { AllowedReaction, CallbackQuery, ChatJoinRequest, ChatMemberUpdated, InlineQuery, Message, Poll, PreCheckoutQuery, ShippingOption, ShippingQuery } from "@/types/telegram"
 import { ArgsOf } from "@/types/util"
 import { TelegramMethodMap } from "@/types/telegram/methods"
 import { Bot } from "@/api/bot"
+import { BotEventMap, Command, TelegramEventMap } from "@/types/telegram/events"
 
 export interface BaseContext<Raw> {
     raw: Raw
-    update_id: number
 }
 
-export class MessageContext implements BaseContext<Message> {
-    constructor(public raw: Message, public update_id: number, private bot: Bot) { }
+export class MessageContext implements BaseContext<TelegramEventMap["message"]> {
+    constructor(public raw: TelegramEventMap["message"], private bot: Bot) { }
 
     async reply(text: string, extra?: object) {
         return this.bot.request("sendMessage", {
@@ -61,8 +61,21 @@ export class MessageContext implements BaseContext<Message> {
     }
 }
 
-export class CallbackQueryContext implements BaseContext<CallbackQuery> {
-    constructor(public raw: CallbackQuery, public update_id: number, private bot: Bot) { }
+export class CommandContext extends MessageContext {
+    public commands: BotEventMap["command"]["commands"]
+
+    constructor(cmd: BotEventMap["command"], bot: Bot) {
+        super(cmd.message, bot)
+        this.commands = cmd.commands
+    }
+
+    get first(): Command | undefined {
+        return this.commands[0]
+    }
+}
+
+export class CallbackQueryContext implements BaseContext<TelegramEventMap["callback_query"]> {
+    constructor(public raw: CallbackQuery, private bot: Bot) { }
 
     async answer(text?: string, showAlert = false, cacheTime = 0) {
         return this.bot.request("answerCallbackQuery", {
@@ -110,16 +123,16 @@ export class CallbackQueryContext implements BaseContext<CallbackQuery> {
     }
 }
 
-export class InlineQueryContext implements BaseContext<InlineQuery> {
-    constructor(public raw: InlineQuery, public update_id: number, private bot: Bot) { }
+export class InlineQueryContext implements BaseContext<TelegramEventMap["inline_query"]> {
+    constructor(public raw: InlineQuery, private bot: Bot) { }
 
     async answer(options: ArgsOf<TelegramMethodMap["answerInlineQuery"]>) {
         return this.bot.request("answerInlineQuery", options)
     }
 }
 
-export class PollContext implements BaseContext<Poll> {
-    constructor(public raw: Poll, public update_id: number, private bot: Bot) { }
+export class PollContext implements BaseContext<TelegramEventMap["poll"]> {
+    constructor(public raw: Poll, private bot: Bot) { }
 
     async stop(chat_id: number | string, message_id: number) {
         return this.bot.request("stopPoll", {
@@ -129,12 +142,8 @@ export class PollContext implements BaseContext<Poll> {
     }
 }
 
-export class PollAnswerContext implements BaseContext<PollAnswer> {
-    constructor(public raw: PollAnswer, public update_id: number, private bot: Bot) { }
-}
-
-export class ChatMemberUpdatedContext implements BaseContext<ChatMemberUpdated> {
-    constructor(public raw: ChatMemberUpdated, public update_id: number, private bot: Bot) { }
+export class ChatMemberUpdatedContext implements BaseContext<TelegramEventMap["chat_member"]> {
+    constructor(public raw: ChatMemberUpdated, private bot: Bot) { }
 
     get oldStatus() {
         return this.raw.old_chat_member.status
@@ -159,8 +168,8 @@ export class ChatMemberUpdatedContext implements BaseContext<ChatMemberUpdated> 
     }
 }
 
-export class ChatJoinRequestContext implements BaseContext<ChatJoinRequest> {
-    constructor(public raw: ChatJoinRequest, public update_id: number, private bot: Bot) { }
+export class ChatJoinRequestContext implements BaseContext<TelegramEventMap["chat_join_request"]> {
+    constructor(public raw: ChatJoinRequest, private bot: Bot) { }
 
     async approve() {
         return this.bot.request("approveChatJoinRequest", {
@@ -177,8 +186,8 @@ export class ChatJoinRequestContext implements BaseContext<ChatJoinRequest> {
     }
 }
 
-export class ShippingQueryContext implements BaseContext<ShippingQuery> {
-    constructor(public raw: ShippingQuery, public update_id: number, private bot: Bot) { }
+export class ShippingQueryContext implements BaseContext<TelegramEventMap["shipping_query"]> {
+    constructor(public raw: ShippingQuery, private bot: Bot) { }
 
     async answerOk(shipping_options: ShippingOption[]) {
         return this.bot.request("answerShippingQuery", {
@@ -197,8 +206,8 @@ export class ShippingQueryContext implements BaseContext<ShippingQuery> {
     }
 }
 
-export class PreCheckoutQueryContext implements BaseContext<PreCheckoutQuery> {
-    constructor(public raw: PreCheckoutQuery, public update_id: number, private bot: Bot) { }
+export class PreCheckoutQueryContext implements BaseContext<TelegramEventMap["pre_checkout_query"]> {
+    constructor(public raw: PreCheckoutQuery, private bot: Bot) { }
 
     async answerOk() {
         return this.bot.request("answerPreCheckoutQuery", {
@@ -224,12 +233,13 @@ export const ContextClassMap = {
     business_message: MessageContext,
     edited_business_message: MessageContext,
 
+    command: CommandContext,
+
     callback_query: CallbackQueryContext,
 
     inline_query: InlineQueryContext,
 
     poll: PollContext,
-    poll_answer: PollAnswerContext,
 
     my_chat_member: ChatMemberUpdatedContext,
     chat_member: ChatMemberUpdatedContext,

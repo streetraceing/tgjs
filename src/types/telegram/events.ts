@@ -29,6 +29,10 @@ export const UpdateEventMap: {
     removed_chat_boost: u => u.removed_chat_boost
 }
 
+export const TELEGRAM_EVENT_NAMES = Object.keys(UpdateEventMap) as Array<keyof TelegramEventMap>;
+
+export const TELEGRAM_EVENT_SET = new Set<string>(TELEGRAM_EVENT_NAMES.map(String));
+
 export type TelegramEventMap = {
     update: Update
     message: Message
@@ -54,4 +58,16 @@ export type TelegramEventMap = {
     chat_join_request: ChatJoinRequest
     chat_boost: ChatBoostUpdated
     removed_chat_boost: ChatBoostRemoved
+}
+
+export type Command = {
+    name: string,
+    args: string[]
+}
+
+export type BotEventMap = TelegramEventMap & {
+    command: {
+        message: Message | never,
+        commands: Command[]
+    }
 }
