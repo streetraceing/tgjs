@@ -30,32 +30,32 @@ export function toFormData(data: Record<string, any>): FormData {
 }
 
 export function joinUrl(...parts: Array<string | number | null | undefined>): string {
-    let proto = "";
-    let res: string[] = [];
+    let proto = ""
+    let res: string[] = []
 
     for (let i = 0; i < parts.length; i++) {
-        let part = parts[i];
-        if (part == null) continue;
+        let part = parts[i]
+        if (part == null) continue
 
-        let str = String(part);
+        let str = String(part)
 
         if (i === 0) {
-            const match = str.match(/^([a-z][a-z0-9+.-]*:\/\/)/i);
+            const match = str.match(/^([a-z][a-z0-9+.-]*:\/\/)/i)
             if (match) {
-                proto = match[1];
-                str = str.slice(proto.length);
+                proto = match[1]
+                str = str.slice(proto.length)
             }
         } else {
             if (/^[a-z][a-z0-9+.-]*:\/\//i.test(str)) {
-                str = str.replace(/^[a-z][a-z0-9+.-]*:\/\//i, "");
+                str = str.replace(/^[a-z][a-z0-9+.-]*:\/\//i, "")
             }
         }
 
-        str = str.replace(/^\/+|\/+$/g, "");
-        if (str) res.push(str);
+        str = str.replace(/^\/+|\/+$/g, "")
+        if (str) res.push(str)
     }
 
-    return proto + res.join("/");
+    return proto + res.join("/")
 }
 
 export function deepMerge<T>(target: DeepPartial<T>, source: Partial<T>): T

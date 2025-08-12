@@ -52,7 +52,7 @@ export class Bot {
 
                 if (event in ContextClassMap) {
                     const CtxClass = ContextClassMap[event as keyof typeof ContextClassMap]
-                    result = new (CtxClass as any)(raw, raw.update_id, this.client)
+                    result = new (CtxClass as any)(raw, raw.update_id, this)
                 }
 
                 listener(result)
