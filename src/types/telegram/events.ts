@@ -29,9 +29,9 @@ export const UpdateEventMap: {
     removed_chat_boost: u => u.removed_chat_boost
 }
 
-export const TELEGRAM_EVENT_NAMES = Object.keys(UpdateEventMap) as Array<keyof TelegramEventMap>;
+export const TELEGRAM_EVENT_NAMES = Object.keys(UpdateEventMap) as Array<keyof TelegramEventMap>
 
-export const TELEGRAM_EVENT_SET = new Set<string>(TELEGRAM_EVENT_NAMES.map(String));
+export const TELEGRAM_EVENT_SET = new Set<string>(TELEGRAM_EVENT_NAMES.map(String))
 
 export type TelegramEventMap = {
     update: Update

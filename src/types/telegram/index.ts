@@ -5,7 +5,7 @@ export type InputFile = Buffer | ReadStream | string
 
 export type AllowedUpdate = keyof TelegramEventMap
 
-export const allowedReactions = [
+const allowedReactions = [
     "❤", "👍", "👎", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱",
     "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏", "👌", "🕊", "🤡",
     "🥱", "🥴", "😍", "🐳", "❤‍🔥", "🌚", "🌭", "💯", "🤣", "⚡",
