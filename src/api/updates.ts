@@ -95,23 +95,18 @@ export class Webhook extends Updates {
     async start() {
         if (this.running) return
         this.running = true
-
         await this.cleanWebhook()
 
         const url = joinUrl(this.options.domain, this.options.path!)
+        const { port, path, domain, ...rest } = this.options
 
         await this.bot.request("setWebhook", {
             url,
-            ...{
-                ...this.options,
-                port: undefined,
-                path: undefined,
-                domain: undefined
-            }
+            ...rest
         })
 
         this.server = createServer(async (req: IncomingMessage, res: ServerResponse) => {
-            if (req.method !== "POST" || req.url !== this.options.path) {
+            if (req.method !== "POST" || req.url !== path) {
                 res.statusCode = 404
                 return res.end("Not Found")
             }
@@ -132,8 +127,8 @@ export class Webhook extends Updates {
             }
         })
 
-        this.server.listen(this.options.port, () => {
-            this.bot.logger.info({ text: `Webhook server listening on port ${this.options.port} to ${url}`, module: "updates" })
+        this.server.listen(port, () => {
+            this.bot.logger.info({ text: `Webhook server listening on port ${port} to ${url}`, module: "updates" })
         })
     }
 

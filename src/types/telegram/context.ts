@@ -1,4 +1,4 @@
-import { AllowedReaction, CallbackQuery, ChatJoinRequest, ChatMemberUpdated, InlineQuery, Message, Poll, PreCheckoutQuery, ShippingOption, ShippingQuery } from "@/types/telegram"
+import { AllowedReaction, CallbackQuery, ChatJoinRequest, ChatMemberUpdated, InlineQuery, ParsedEntity, Poll, PreCheckoutQuery, ShippingOption, ShippingQuery } from "@/types/telegram"
 import { ArgsOf } from "@/types/util"
 import { TelegramMethodMap } from "@/types/telegram/methods"
 import { Bot } from "@/api/bot"
@@ -10,6 +10,16 @@ export interface BaseContext<Raw> {
 
 export class MessageContext implements BaseContext<TelegramEventMap["message"]> {
     constructor(public raw: TelegramEventMap["message"], private bot: Bot) { }
+
+    get entities(): ParsedEntity[] {
+        if (!this.raw.entities || !this.raw.text) return []
+
+        return this.raw.entities.map((entity, index) => ({
+            content: this.raw.text!.slice(entity.offset, entity.offset + entity.length),
+            index,
+            ...entity
+        }))
+    }
 
     async reply(text: string, extra?: object) {
         return this.bot.request("sendMessage", {

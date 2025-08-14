@@ -1,6 +1,8 @@
 import { ReadStream } from "fs"
 import { TelegramEventMap } from "@/types/telegram/events"
 
+// Useful
+
 export type InputFile = Buffer | ReadStream | string
 
 export type AllowedUpdate = keyof TelegramEventMap
@@ -12,11 +14,18 @@ const allowedReactions = [
     "🍌", "🏆", "💔", "🤨", "😐", "🍓", "🍾", "💋", "🖕", "😈",
     "😴", "😭", "🤓", "👻", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨",
     "🤝", "✍", "🤗", "🫡", "🎅", "🎄", "☃", "💅", "🤪", "🗿",
-    "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", 
+    "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂",
     "🤷", "🤷‍♀", "😡"
 ] as const
 
 export type AllowedReaction = typeof allowedReactions[number]
+
+export type ParsedEntity = MessageEntity & {
+    content: string,
+    index: number
+}
+
+// Telegram
 
 export type Update = {
     update_id: number

@@ -1,6 +1,6 @@
 {
     "name": "@streetraceing/tgjs",
-    "version": "1.0.14",
+    "version": "1.0.15",
     "author": "streetraceing",
     "description": "tgjs is a typeScript library for interacting with the Telegram Bot API",
     "license": "MIT",
