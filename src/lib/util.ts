@@ -88,3 +88,11 @@ export function deepMerge<T>(target: Partial<T>, source: Partial<T>): T {
 export function capitalizeString(val: string) {
     return String(val).charAt(0).toUpperCase() + String(val).slice(1);
 }
+
+export function secureTokens(text: string): string {
+    return text.replace(/bot[0-9]+:[a-zA-Z0-9_-]+/g, 'bot...');
+}
+
+export function getTimestamp(): string {
+    return new Date().toLocaleTimeString('ru-RU', { hour12: false });
+}

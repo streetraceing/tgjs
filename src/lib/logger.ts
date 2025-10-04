@@ -1,8 +1,12 @@
 import chalk from 'chalk';
 
-import { capitalizeString } from '@/lib/util';
-
-export const LogLevels = ['off', 'debug', 'info', 'warn', 'error'] as const;
+import { capitalizeString, getTimestamp, secureTokens } from '@/lib/util';
+import {
+    levelColorMap,
+    loggerLevelPriority,
+    LogLevels,
+    moduleColorMap,
+} from '@/lib/constants';
 
 export type LogLevel = (typeof LogLevels)[number];
 
@@ -15,23 +19,6 @@ export type LoggerParams = {
 export type LogParams = {
     text: string;
     module: LogModule;
-};
-
-type ChalkFn = (msg: string) => string;
-
-const levelColorMap: Record<LogLevel, (msg: string) => string> = {
-    off: () => '',
-    debug: chalk.hex('#9E9E9E'),
-    info: chalk.hex('#03A9F4'),
-    warn: chalk.hex('#FFC107'),
-    error: chalk.hex('#F44336'),
-};
-
-const levelPriority = { debug: 0, info: 1, warn: 2, error: 3, off: 4 };
-
-const moduleColorMap: Record<LogModule, (text: string) => string> = {
-    bot: chalk.hex('#5D5FEF'),
-    updates: chalk.hex('#90ee90'),
 };
 
 export class Logger {
@@ -49,16 +36,10 @@ export class Logger {
         this.params.level = level;
     }
 
-    static secureTokens(text: string): string {
-        return text.replace(/bot[0-9]+:[a-zA-Z0-9_-]+/g, 'bot...');
-    }
-
-    static getTimestamp(): string {
-        return new Date().toLocaleTimeString('ru-RU', { hour12: false });
-    }
-
     private static applyChalkTag(tag: string, content: string): string {
-        const colorFn = (chalk as unknown as Record<string, ChalkFn>)[tag];
+        const colorFn = (
+            chalk as unknown as Record<string, (msg: string) => string>
+        )[tag];
         return typeof colorFn === 'function' ? colorFn(content) : content;
     }
 
@@ -95,17 +76,20 @@ export class Logger {
     }
 
     private shouldLog(level: LogLevel): boolean {
-        return levelPriority[level] >= levelPriority[this.params.level!];
+        return (
+            loggerLevelPriority[level] >=
+            loggerLevelPriority[this.params.level!]
+        );
     }
 
     private log(level: LogLevel, { text, module }: LogParams) {
         if (!this.shouldLog(level)) return;
 
         const prefix = levelColorMap[level](
-            `[${Logger.getTimestamp()} - ${level.toUpperCase()}]`,
+            `[${getTimestamp()} - ${level.toUpperCase()}]`,
         );
         const suffix = moduleColorMap[module](`[${capitalizeString(module)}]`);
-        const message = Logger.applyStyles(Logger.secureTokens(text));
+        const message = Logger.applyStyles(secureTokens(text));
 
         process.stdout.write(`${prefix} ${suffix} ${message}\n`);
     }

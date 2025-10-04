@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { Logger, LogLevels } from '@/lib/logger';
+import { Logger } from '@/lib/logger';
 import {
     DirectBotConstructorError,
     IncorrectBotOptions,
@@ -13,7 +13,12 @@ import {
     toFormData,
 } from '@/lib/util';
 import { ClientOptions } from '@/types/client';
-import { apiUrl, defaultBotOptions, tokenMinimalLength } from '@/lib/constants';
+import {
+    apiUrl,
+    defaultBotOptions,
+    LogLevels,
+    tokenMinimalLength,
+} from '@/lib/constants';
 import { ReturnOf, SmartArgsUniversal } from '@/types/util';
 import { TelegramEventMap } from '@/types/telegram/events';
 import { UpdateEventMap } from '@/types/telegram/events';
@@ -91,14 +96,14 @@ export class Client {
             config: {},
         });
         this.logger.debug({
-            text: `Username: ${me.username} | Id: ${me.id}`,
+            text: `Username: ${me.username} • Id: ${me.id}`,
             module: 'bot',
         });
 
         switch (this.options.updates?.method) {
             case 'longpoll':
                 this.logger.debug({
-                    text: `Use longpolling | Timeout: ${this.options.updates.longpoll!.timeout}s`,
+                    text: `Use longpolling • Timeout: ${this.options.updates.longpoll!.timeout}s`,
                     module: 'bot',
                 });
 
@@ -111,7 +116,7 @@ export class Client {
                 break;
             case 'webhook':
                 this.logger.debug({
-                    text: `Use webhook server | Host: http://localhost:${this.options.updates.webhook.port} | URL: ${joinUrl(this.options.updates.webhook.domain, this.options.updates.webhook.path)}`,
+                    text: `Use webhook server • Host: http://localhost:${this.options.updates.webhook.port} • URL: ${joinUrl(this.options.updates.webhook.domain, this.options.updates.webhook.path)}`,
                     module: 'bot',
                 });
 
@@ -189,11 +194,7 @@ export class Client {
         const data = res.data;
 
         if (!data.ok) {
-            throw new RequestError(
-                Logger.secureTokens(url),
-                data.error_code,
-                data.description,
-            );
+            throw new RequestError(url, data.error_code, data.description);
         }
 
         return data.result;

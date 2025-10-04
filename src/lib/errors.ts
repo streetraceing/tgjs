@@ -1,4 +1,4 @@
-import { Logger } from '@/lib/logger';
+import { secureTokens } from '@/lib/util';
 
 export class RequestError extends Error {
     public override name = 'RequestError';
@@ -9,10 +9,7 @@ export class RequestError extends Error {
         public readonly description: string,
     ) {
         super(`Request failed with code ${code} | ${description}`);
-
-        this.code = code;
-        this.description = description;
-        this.url = Logger.secureTokens(url);
+        this.url = secureTokens(url);
 
         Object.setPrototypeOf(this, new.target.prototype);
     }

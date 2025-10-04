@@ -6,7 +6,7 @@ import { defineConfig } from 'eslint/config';
 
 export default defineConfig(
     {
-        ignores: ['eslint.config.mjs'],
+        ignores: ['eslint.config.mjs', "node_modules/**", "dist/**"],
     },
     eslintPluginPrettierRecommended,
     {
@@ -14,7 +14,7 @@ export default defineConfig(
             parser: tseslint.parser,
             parserOptions: {
                 projectService: true,
-            },
+            }
         }
     }
 );
