@@ -1,6 +1,6 @@
 {
     "name": "@streetraceing/tgjs",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "tgjs is a TypeScript library that allows you to interact with the Telegram bot API.",
     "keywords": [
         "telegram",
@@ -33,7 +33,7 @@
     ],
     "scripts": {
         "build": "npm run lint && tsc && tsc-alias",
-        "lint": "eslint . --fix --ext .ts,.tsx",
+        "lint": "eslint . --fix",
         "major": "npm version major --no-git-tag-version",
         "minor": "npm version minor --no-git-tag-version",
         "patch": "npm version patch --no-git-tag-version",
@@ -41,16 +41,18 @@
         "postversion": "npm publish --access public"
     },
     "dependencies": {
-        "@eslint/js": "^9.37.0",
         "axios": "^1.12.2",
-        "chalk": "^5.6.2",
-        "eslint-config-prettier": "^10.1.8",
-        "eslint-plugin-prettier": "^5.5.4",
-        "typescript-eslint": "^8.45.0"
+        "chalk": "^5.6.2"
     },
     "devDependencies": {
+        "@eslint/js": "^9.37.0",
         "@types/node": "^24.6.2",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-prettier": "^5.5.4",
+        "eslint-plugin-simple-import-sort": "^12.1.1",
         "tsc-alias": "^1.8.16",
-        "typescript": "^5.9.3"
+        "typescript": "^5.9.3",
+        "typescript-eslint": "^8.45.0"
     }
 }

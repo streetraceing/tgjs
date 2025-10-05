@@ -1,3 +1,6 @@
+import { Bot } from '@/api/bot';
+import { BotEventMap, Command, TelegramEventMap } from '@/types/events';
+import { TelegramMethodMap } from '@/types/methods';
 import {
     AllowedReaction,
     CallbackQuery,
@@ -11,13 +14,6 @@ import {
     ShippingQuery,
 } from '@/types/telegram';
 import { ArgsOf } from '@/types/util';
-import { TelegramMethodMap } from '@/types/telegram/methods';
-import { Bot } from '@/api/bot';
-import {
-    BotEventMap,
-    Command,
-    TelegramEventMap,
-} from '@/types/telegram/events';
 
 export interface BaseContext<Raw> {
     raw: Raw;

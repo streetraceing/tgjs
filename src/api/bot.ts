@@ -1,14 +1,14 @@
+import { EventEmitter } from 'node:stream';
 import { Client } from '@/api/client';
 import { ClientOptions } from '@/types/client';
-import { ContextClassMap } from '@/types/telegram/context';
+import { ContextClassMap } from '@/types/context';
 import {
     BotEventMap,
     TELEGRAM_EVENT_SET,
     TelegramEventMap,
-} from '@/types/telegram/events';
-import { TelegramMethodMap } from '@/types/telegram/methods';
+} from '@/types/events';
+import { TelegramMethodMap } from '@/types/methods';
 import { ReturnOf, SmartArgsWithoutConfig } from '@/types/util';
-import { EventEmitter } from 'node:stream';
 
 export class Bot {
     #events = new EventEmitter();

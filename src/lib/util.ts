@@ -1,6 +1,5 @@
-import fs from 'fs';
 import FormData from 'form-data';
-
+import fs from 'fs';
 import { DeepPartial } from '@/types/util';
 
 export function isInputFile(value: any): boolean {

@@ -1,31 +1,30 @@
 import axios from 'axios';
-
-import { Logger } from '@/lib/logger';
-import {
-    DirectBotConstructorError,
-    IncorrectBotOptions,
-    RequestError,
-} from '@/lib/errors';
-import {
-    isInputFile,
-    joinUrl,
-    deepMerge as merge,
-    toFormData,
-} from '@/lib/util';
-import { ClientOptions } from '@/types/client';
+import { EventEmitter } from 'node:stream';
+import { Longpoll, Updates, Webhook } from '@/api/updates';
 import {
     apiUrl,
     defaultBotOptions,
     LogLevels,
     tokenMinimalLength,
 } from '@/lib/constants';
-import { ReturnOf, SmartArgsUniversal } from '@/types/util';
-import { TelegramEventMap } from '@/types/telegram/events';
-import { UpdateEventMap } from '@/types/telegram/events';
-import { TelegramMethodMap } from '@/types/telegram/methods';
+import {
+    DirectBotConstructorError,
+    IncorrectBotOptions,
+    RequestError,
+} from '@/lib/errors';
+import { Logger } from '@/lib/logger';
+import {
+    deepMerge as merge,
+    isInputFile,
+    joinUrl,
+    toFormData,
+} from '@/lib/util';
+import { ClientOptions } from '@/types/client';
+import { TelegramEventMap } from '@/types/events';
+import { UpdateEventMap } from '@/types/events';
+import { TelegramMethodMap } from '@/types/methods';
 import { Update } from '@/types/telegram';
-import { Longpoll, Updates, Webhook } from '@/api/updates';
-import { EventEmitter } from 'node:stream';
+import { ReturnOf, SmartArgsUniversal } from '@/types/util';
 
 const internal = Symbol('internal');
 
@@ -165,9 +164,10 @@ export class Client {
     ): Promise<ReturnOf<TelegramMethodMap[M]>>;
 
     async request(method: any, ...args: any[]): Promise<any> {
-        let input = args[0] ?? {},
-            url = joinUrl(this.botApiUrl, method),
-            res;
+        const input = args[0] ?? {};
+        const url = joinUrl(this.botApiUrl, method);
+
+        let res;
 
         const payload = { ...input, config: undefined };
 

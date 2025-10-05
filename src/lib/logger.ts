@@ -1,12 +1,11 @@
 import chalk from 'chalk';
-
-import { capitalizeString, getTimestamp, secureTokens } from '@/lib/util';
 import {
     levelColorMap,
     loggerLevelPriority,
     LogLevels,
     moduleColorMap,
 } from '@/lib/constants';
+import { capitalizeString, getTimestamp, secureTokens } from '@/lib/util';
 
 export type LogLevel = (typeof LogLevels)[number];
 

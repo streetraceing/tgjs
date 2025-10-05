@@ -1,6 +1,6 @@
-import { ArgsOf, RequiredKeys } from '@/types/util';
-import { TelegramMethodMap } from '@/types/telegram/methods';
 import { LoggerParams } from '@/lib/logger';
+import { TelegramMethodMap } from '@/types/methods';
+import { ArgsOf, RequiredKeys } from '@/types/util';
 
 export type LongpollOptions = ArgsOf<TelegramMethodMap['getUpdates']>;
 

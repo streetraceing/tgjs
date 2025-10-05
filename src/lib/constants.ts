@@ -1,7 +1,6 @@
 import chalk from 'chalk';
-
-import { ClientOptions } from '@/types/client';
 import { LogLevel, LogModule } from '@/lib/logger';
+import { ClientOptions } from '@/types/client';
 
 export const tokenMinimalLength = 40;
 

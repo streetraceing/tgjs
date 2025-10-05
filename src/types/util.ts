@@ -1,5 +1,5 @@
-import { TelegramMethodMap } from '@/types/telegram/methods';
 import { AxiosRequestConfig } from 'axios';
+import { TelegramMethodMap } from '@/types/methods';
 
 export type ArgsOf<M> = M extends { args: infer A } ? A : {};
 

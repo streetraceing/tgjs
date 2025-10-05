@@ -1,20 +1,47 @@
-// @ts-check
-
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import tseslint from 'typescript-eslint';
 import { defineConfig } from 'eslint/config';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default defineConfig(
     {
-        ignores: ['eslint.config.mjs', "node_modules/**", "dist/**"],
+        ignores: ['node_modules/**', 'dist/**'],
+
+        plugins: {
+            'simple-import-sort': simpleImportSort,
+        },
+
+        rules: {
+            'simple-import-sort/imports': [
+                'error',
+                {
+                    groups: [
+                        ['^\\w', '^(@|src)(/.*|$)'],
+
+                        ['^\\u0000'],
+
+                        ['^\\*'],
+
+                        ['^\\{'],
+                    ],
+                },
+            ],
+
+            'simple-import-sort/exports': 'error',
+
+            'sort-imports': [
+                'error',
+                {
+                    ignoreCase: false,
+                    ignoreDeclarationSort: true,
+                    memberSyntaxSortOrder: [
+                        'none',
+                        'all',
+                        'multiple',
+                        'single',
+                    ],
+                },
+            ],
+        },
     },
     eslintPluginPrettierRecommended,
-    {
-        languageOptions: {
-            parser: tseslint.parser,
-            parserOptions: {
-                projectService: true,
-            }
-        }
-    }
 );
