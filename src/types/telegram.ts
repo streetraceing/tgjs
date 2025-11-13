@@ -500,19 +500,19 @@ export type PaidMediaInfo = {
 };
 
 export type PaidMediaPreview = {
-    type: string;
+    type: "preview";
     width?: number;
     height?: number;
     duration?: number;
 };
 
 export type PaidMediaPhoto = {
-    type: string;
+    type: "photo";
     photo: PhotoSize[];
 };
 
 export type PaidMediaVideo = {
-    type: string;
+    type: "video";
     video: Video;
 };
 
@@ -548,6 +548,8 @@ export type PollAnswer = {
     option_ids: number[];
 };
 
+export type PollType = "regular" | "quiz"
+
 export type Poll = {
     id: string;
     question: string;
@@ -556,7 +558,7 @@ export type Poll = {
     total_voter_count: number;
     is_closed: boolean;
     is_anonymous: boolean;
-    type: string;
+    type: PollType;
     allows_multiple_answers: boolean;
     correct_option_id?: number;
     explanation?: string;
@@ -1127,33 +1129,33 @@ export type StoryAreaType =
     | StoryAreaTypeWeather;
 
 export type StoryAreaTypeLocation = {
-    type: string;
+    type: "location";
     latitude: number;
     longitude: number;
     address?: LocationAddress;
 };
 
 export type StoryAreaTypeSuggestedReaction = {
-    type: string;
+    type: "suggested_reaction";
     reaction_type: ReactionType;
     is_dark?: boolean;
     is_flipped?: boolean;
 };
 
 export type StoryAreaTypeLink = {
-    type: string;
+    type: "link";
     url: string;
 };
 
 export type StoryAreaTypeWeather = {
-    type: string;
+    type: "weather";
     temperature: number;
     emoji: string;
     background_color: number;
 };
 
 export type StoryAreaTypeUniqueGift = {
-    type: string;
+    type: "unique_gift";
     name: string;
 };
 
@@ -1283,7 +1285,7 @@ export type UniqueGiftInfo = {
 };
 
 export type OwnedGiftRegular = {
-    type: string;
+    type: "regular";
     gift: Gift;
     owned_gift_id?: string;
     sender_user?: User;
@@ -1299,7 +1301,7 @@ export type OwnedGiftRegular = {
 };
 
 export type OwnedGiftUnique = {
-    type: string;
+    type: "unique";
     gift: UniqueGift;
     owned_gift_id?: string;
     sender_user?: User;
@@ -1345,33 +1347,33 @@ export type BotCommandScope =
     | BotCommandScopeChatMember;
 
 export type BotCommandScopeDefault = {
-    type: string;
+    type: "default";
 };
 
 export type BotCommandScopeAllPrivateChats = {
-    type: string;
+    type: "all_private_chats";
 };
 
 export type BotCommandScopeAllGroupChats = {
-    type: string;
+    type: "all_group_chats";
 };
 
 export type BotCommandScopeAllChatAdministrators = {
-    type: string;
+    type: "all_chat_administrators";
 };
 
 export type BotCommandScopeChat = {
-    type: string;
+    type: "chat";
     chat_id: number | string;
 };
 
 export type BotCommandScopeChatAdministrators = {
-    type: string;
+    type: "chat_administrators";
     chat_id: number | string;
 };
 
 export type BotCommandScopeChatMember = {
-    type: string;
+    type: "chat_member";
     chat_id: number | string;
     user_id: number;
 };
@@ -1394,17 +1396,17 @@ export type MenuButton =
     | MenuButtonDefault;
 
 export type MenuButtonCommands = {
-    type: string;
+    type: "commands";
 };
 
 export type MenuButtonWebApp = {
-    type: string;
+    type: "web_app";
     text: string;
     web_app: WebAppInfo;
 };
 
 export type MenuButtonDefault = {
-    type: string;
+    type: "default";
 };
 
 export type ChatBoostSource =
@@ -1498,7 +1500,7 @@ export type InputMedia =
     | InputMediaVideo;
 
 export type InputMediaPhoto = {
-    type: string;
+    type: "photo";
     media: string;
     caption?: string;
     parse_mode?: string;
@@ -1508,7 +1510,7 @@ export type InputMediaPhoto = {
 };
 
 export type InputMediaVideo = {
-    type: string;
+    type: "video";
     media: string;
     thumbnail?: string;
     cover?: string;
@@ -1525,7 +1527,7 @@ export type InputMediaVideo = {
 };
 
 export type InputMediaAnimation = {
-    type: string;
+    type: "animation";
     media: string;
     thumbnail?: string;
     caption?: string;
@@ -1539,7 +1541,7 @@ export type InputMediaAnimation = {
 };
 
 export type InputMediaAudio = {
-    type: string;
+    type: "audio";
     media: string;
     thumbnail?: string;
     caption?: string;
@@ -1551,7 +1553,7 @@ export type InputMediaAudio = {
 };
 
 export type InputMediaDocument = {
-    type: string;
+    type: "document";
     media: string;
     thumbnail?: string;
     caption?: string;
@@ -1563,12 +1565,12 @@ export type InputMediaDocument = {
 export type InputPaidMedia = InputPaidMediaPhoto | InputPaidMediaVideo;
 
 export type InputPaidMediaPhoto = {
-    type: string;
+    type: "photo";
     media: string;
 };
 
 export type InputPaidMediaVideo = {
-    type: string;
+    type: "video";
     media: string;
     thumbnail?: string;
     cover?: string;
@@ -1584,12 +1586,12 @@ export type InputProfilePhoto =
     | InputProfilePhotoAnimated;
 
 export type InputProfilePhotoStatic = {
-    type: string;
+    type: "static";
     photo: string;
 };
 
 export type InputProfilePhotoAnimated = {
-    type: string;
+    type: "animated";
     animation: string;
     main_frame_timestamp?: number;
 };
@@ -1597,22 +1599,24 @@ export type InputProfilePhotoAnimated = {
 export type InputStoryContent = InputStoryContentPhoto | InputStoryContentVideo;
 
 export type InputStoryContentPhoto = {
-    type: string;
+    type: "photo";
     photo: string;
 };
 
 export type InputStoryContentVideo = {
-    type: string;
+    type: "video";
     video: string;
     duration?: number;
     cover_frame_timestamp?: number;
     is_animation?: boolean;
 };
 
+export type StickerType = 'regular' | 'mask' | 'custom_emoji'
+
 export type Sticker = {
     file_id: string;
     file_unique_id: string;
-    type: string;
+    type: StickerType;
     width: number;
     height: number;
     is_animated: boolean;
@@ -1630,7 +1634,7 @@ export type Sticker = {
 export type StickerSet = {
     name: string;
     title: string;
-    sticker_type: string;
+    sticker_type: StickerType;
     stickers: Sticker[];
     thumbnail?: PhotoSize;
 };
@@ -1721,7 +1725,7 @@ export type InlineQueryResultVideo = {
     type: 'video';
     id: string;
     video_url: string;
-    mime_type: string;
+    mime_type: "video";
     thumbnail_url: string;
     title: string;
     caption?: string;
@@ -1807,7 +1811,7 @@ export type InlineQueryResultDocument = {
     parse_mode?: string;
     caption_entities?: MessageEntity[];
     document_url: string;
-    mime_type: string;
+    mime_type: "document";
     description?: string;
     reply_markup?: InlineKeyboardMarkup;
     input_message_content?: InputMessageContent;
@@ -2135,17 +2139,17 @@ export type RevenueWithdrawalState =
     | RevenueWithdrawalStateFailed;
 
 export type RevenueWithdrawalStatePending = {
-    type: string;
+    type: "pending";
 };
 
 export type RevenueWithdrawalStateSucceeded = {
-    type: string;
+    type: "succeeded";
     date: number;
     url: string;
 };
 
 export type RevenueWithdrawalStateFailed = {
-    type: string;
+    type: "failed";
 };
 
 export type AffiliateInfo = {
@@ -2165,9 +2169,11 @@ export type TransactionPartner =
     | TransactionPartnerTelegramApi
     | TransactionPartnerOther;
 
+export type TransactionType = "invoice_payment" | "paid_media_payment" | "gift_purchase" | "premium_purchase" | "business_account_transfer"
+
 export type TransactionPartnerUser = {
-    type: string;
-    transaction_type: string;
+    type: "user";
+    transaction_type: TransactionType;
     user: User;
     affiliate?: AffiliateInfo;
     invoice_payload?: string;
@@ -2179,33 +2185,33 @@ export type TransactionPartnerUser = {
 };
 
 export type TransactionPartnerChat = {
-    type: string;
+    type: "chat";
     chat: Chat;
     gift?: Gift;
 };
 
 export type TransactionPartnerAffiliateProgram = {
-    type: string;
+    type: "affiliate_program";
     sponsor_user?: User;
     commission_per_mille: number;
 };
 
 export type TransactionPartnerFragment = {
-    type: string;
+    type: "fragment";
     withdrawal_state?: RevenueWithdrawalState;
 };
 
 export type TransactionPartnerTelegramAds = {
-    type: string;
+    type: "telegram_ads";
 };
 
 export type TransactionPartnerTelegramApi = {
-    type: string;
+    type: "telegram_api";
     request_count: number;
 };
 
 export type TransactionPartnerOther = {
-    type: string;
+    type: "other";
 };
 
 export type StarTransaction = {
@@ -2233,8 +2239,10 @@ export type PassportFile = {
     file_date: number;
 };
 
+export type EncryptedPassportElementType = "personal_details" | "passport" | "driver_license" | "identity_card" | "internal_passport" | "address" | "utility_bill" | "bank_statement" | "rental_agreement" | "passport_registration" | "temporary_registration" | "phone_number" | "email"
+
 export type EncryptedPassportElement = {
-    type: string;
+    type: EncryptedPassportElementType;
     data?: string;
     phone_number?: string;
     email?: string;
@@ -2264,64 +2272,64 @@ export type PassportElementError =
     | PassportElementErrorUnspecified;
 
 export type PassportElementErrorDataField = {
-    source: string;
-    type: string;
+    source: "data";
+    type: "personal_details" | "passport" | "driver_license" | "identity_card" | "internal_passport" | "address";
     field_name: string;
     data_hash: string;
     message: string;
 };
 
 export type PassportElementErrorFrontSide = {
-    source: string;
-    type: string;
+    source: "front_side";
+    type: "passport" | "driver_license" | "identity_card" | "internal_passport";
     file_hash: string;
     message: string;
 };
 
 export type PassportElementErrorReverseSide = {
-    source: string;
-    type: string;
+    source: "reverse_side";
+    type: "driver_license" | "identity_card";
     file_hash: string;
     message: string;
 };
 
 export type PassportElementErrorSelfie = {
-    source: string;
-    type: string;
+    source: "selfie";
+    type: "passport" | "driver_license" | "identity_card" | "internal_passport";
     file_hash: string;
     message: string;
 };
 
 export type PassportElementErrorFile = {
-    source: string;
-    type: string;
+    source: "file";
+    type: "utility_bill" | "bank_statement" | "rental_agreement" | "passport_registration" | "temporary_registration";
     file_hash: string;
     message: string;
 };
 
 export type PassportElementErrorFiles = {
-    source: string;
-    type: string;
+    source: "files";
+    type: "utility_bill" | "bank_statement" | "rental_agreement" | "passport_registration" | "temporary_registration";
     file_hashes: string[];
     message: string;
 };
 
 export type PassportElementErrorTranslationFile = {
-    source: string;
-    type: string;
+    source: "translation_file";
+    type: "passport" | "driver_license" | "identity_card" | "internal_passport" | "utility_bill" | "bank_statement" | "rental_agreement" | "passport_registration" | "temporary_registration";
     file_hash: string;
     message: string;
 };
 
 export type PassportElementErrorTranslationFiles = {
-    source: string;
-    type: string;
+    source: "translation_files";
+    type: "passport" | "driver_license" | "identity_card" | "internal_passport" | "utility_bill" | "bank_statement" | "rental_agreement" | "passport_registration" | "temporary_registration";
     file_hashes: string[];
     message: string;
 };
 
 export type PassportElementErrorUnspecified = {
-    source: string;
+    source: "unspecified";
     type: string;
     element_hash: string;
     message: string;
