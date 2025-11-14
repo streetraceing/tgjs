@@ -95,4 +95,6 @@ export type BotEventMap = TelegramEventMap & {
         message: Message | never;
         commands: Command[];
     };
-};
+} & {
+    [K in `callback_query:${string}`]: CallbackQuery;
+}

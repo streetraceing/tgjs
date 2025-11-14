@@ -1,7 +1,7 @@
 import { EventEmitter } from 'node:stream';
 import { Client } from '@/api/client';
 import { ClientOptions } from '@/types/client';
-import { ContextClassMap } from '@/types/context';
+import { ContextClassMap, ContextClassMapType } from '@/types/context';
 import {
     BotEventMap,
     TELEGRAM_EVENT_SET,
@@ -73,14 +73,14 @@ export class Bot {
         });
 
         // Callback Query with groups like callback_query:settings
-        this.#client.on('callback_query', (ctx) => {
+        this.#client.on('callback_query', ctx => {
             const data = ctx.data;
             if (!data) return;
 
             const [groupId, action] = data.split(':');
 
             if (action) {
-                this.#events.emit(`callback_query:${groupId}`, { ctx, action });
+                this.#events.emit(`callback_query:${groupId}`, ctx);
             } else {
                 this.#events.emit('callback_query', ctx);
             }
@@ -98,18 +98,18 @@ export class Bot {
     on<E extends keyof BotEventMap>(
         event: E,
         listener: (
-            object: E extends keyof typeof ContextClassMap
-                ? InstanceType<(typeof ContextClassMap)[E]>
-                : BotEventMap[E] & { update_id: number },
+            object: E extends keyof ContextClassMapType
+                ? ContextClassMapType[E]
+                : BotEventMap[E] & { update_id: number }
         ) => void,
     ) {
         this.ready().then(() => {
             const handler = (raw: any) => {
                 let result: any = raw;
+                const baseEvent = event.split(':')[0] as keyof typeof ContextClassMap;
 
-                if (event in ContextClassMap) {
-                    const CtxClass =
-                        ContextClassMap[event as keyof typeof ContextClassMap];
+                if (baseEvent in ContextClassMap) {
+                    const CtxClass = ContextClassMap[baseEvent];
                     result = new (CtxClass as any)(raw, this);
                 }
 

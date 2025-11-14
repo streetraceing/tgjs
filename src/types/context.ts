@@ -138,10 +138,18 @@ export class CommandContext extends MessageContext {
 
 export class CallbackQueryContext
     implements BaseContext<TelegramEventMap['callback_query']> {
+    group?: string;
+    action?: string;
     constructor(
         public raw: CallbackQuery,
         private bot: Bot,
-    ) { }
+    ) {
+        if (raw.data) {
+            const [grp, act] = raw.data.split(':');
+            this.group = grp;
+            this.action = act;
+        }
+    }
 
     async answer(text?: string, showAlert = false, cacheTime = 0) {
         return this.bot.request('answerCallbackQuery', {
@@ -340,3 +348,9 @@ export const ContextClassMap = {
     shipping_query: ShippingQueryContext,
     pre_checkout_query: PreCheckoutQueryContext,
 } as const;
+
+export type ContextClassMapType = {
+    [K in keyof typeof ContextClassMap]: InstanceType<typeof ContextClassMap[K]>;
+} & {
+    [K in `callback_query:${string}`]: CallbackQueryContext;
+};
