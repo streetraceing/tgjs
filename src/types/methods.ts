@@ -34,6 +34,7 @@ import {
     MessageEntity,
     MessageId,
     OwnedGift,
+    ParseMode,
     PassportElementError,
     Poll,
     PreparedInlineMessage,
@@ -103,7 +104,7 @@ export type TelegramMethodMap = {
             chat_id: number | string;
             message_thread_id?: number;
             text: string;
-            parse_mode?: string;
+            parse_mode?: ParseMode;
             entities?: MessageEntity[];
             link_preview_options?: LinkPreviewOptions;
             disable_notification?: boolean;
@@ -112,10 +113,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     forwardMessage: {
@@ -150,7 +151,7 @@ export type TelegramMethodMap = {
             message_id: number;
             video_start_timestamp?: number;
             caption?: string;
-            parse_mode?: string;
+            parse_mode?: ParseMode;
             caption_entities?: MessageEntity[];
             show_caption_above_media?: boolean;
             disable_notification?: boolean;
@@ -158,10 +159,10 @@ export type TelegramMethodMap = {
             allow_paid_broadcast?: boolean;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     copyMessages: {
@@ -184,7 +185,7 @@ export type TelegramMethodMap = {
             message_thread_id?: number;
             photo: InputFile | string;
             caption?: string;
-            parse_mode?: string;
+            parse_mode?: ParseMode;
             caption_entities?: MessageEntity[];
             show_caption_above_media?: boolean;
             has_spoiler?: boolean;
@@ -194,10 +195,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     sendAudio: {
@@ -208,7 +209,7 @@ export type TelegramMethodMap = {
             message_thread_id?: number;
             audio: InputFile | string;
             caption?: string;
-            parse_mode?: string;
+            parse_mode?: ParseMode;
             caption_entities?: MessageEntity[];
             duration?: number;
             performer?: string;
@@ -220,10 +221,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     sendDocument: {
@@ -235,7 +236,7 @@ export type TelegramMethodMap = {
             document: InputFile | string;
             thumbnail?: InputFile | string;
             caption?: string;
-            parse_mode?: string;
+            parse_mode?: ParseMode;
             caption_entities?: MessageEntity[];
             disable_content_type_detection?: boolean;
             disable_notification?: boolean;
@@ -244,10 +245,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     sendVideo: {
@@ -264,7 +265,7 @@ export type TelegramMethodMap = {
             cover?: InputFile | string;
             start_timestamp?: number;
             caption?: string;
-            parse_mode?: string;
+            parse_mode?: ParseMode;
             caption_entities?: MessageEntity[];
             show_caption_above_media?: boolean;
             has_spoiler?: boolean;
@@ -275,10 +276,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     sendAnimation: {
@@ -293,7 +294,7 @@ export type TelegramMethodMap = {
             height?: number;
             thumbnail?: InputFile | string;
             caption?: string;
-            parse_mode?: string;
+            parse_mode?: ParseMode;
             caption_entities?: MessageEntity[];
             show_caption_above_media?: boolean;
             has_spoiler?: boolean;
@@ -303,10 +304,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     sendVoice: {
@@ -317,7 +318,7 @@ export type TelegramMethodMap = {
             message_thread_id?: number;
             voice: InputFile | string;
             caption?: string;
-            parse_mode?: string;
+            parse_mode?: ParseMode;
             caption_entities?: MessageEntity[];
             duration?: number;
             disable_notification?: boolean;
@@ -326,10 +327,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     sendVideoNote: {
@@ -348,10 +349,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     sendPaidMedia: {
@@ -363,7 +364,7 @@ export type TelegramMethodMap = {
             media: InputPaidMedia[];
             payload?: string;
             caption?: string;
-            parse_mode?: string;
+            parse_mode?: ParseMode;
             caption_entities?: MessageEntity[];
             show_caption_above_media?: boolean;
             disable_notification?: boolean;
@@ -371,10 +372,10 @@ export type TelegramMethodMap = {
             allow_paid_broadcast?: boolean;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     sendMediaGroup: {
@@ -409,10 +410,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     sendVenue: {
@@ -435,10 +436,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     sendContact: {
@@ -457,10 +458,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     sendPoll: {
@@ -470,7 +471,7 @@ export type TelegramMethodMap = {
             chat_id: number | string;
             message_thread_id?: number;
             question: string;
-            question_parse_mode?: string;
+            question_parse_mode?: ParseMode;
             question_entities?: MessageEntity[];
             options: InputPollOption[];
             is_anonymous?: boolean;
@@ -478,7 +479,7 @@ export type TelegramMethodMap = {
             allows_multiple_answers?: boolean;
             correct_option_id?: number;
             explanation?: string;
-            explanation_parse_mode?: string;
+            explanation_parse_mode?: ParseMode;
             explanation_entities?: MessageEntity[];
             open_period?: number;
             close_date?: number;
@@ -489,10 +490,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     sendChecklist: {
@@ -521,10 +522,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     sendChatAction: {
@@ -1010,7 +1011,7 @@ export type TelegramMethodMap = {
             message_id?: number;
             inline_message_id?: string;
             text: string;
-            parse_mode?: string;
+            parse_mode?: ParseMode;
             entities?: MessageEntity[];
             link_preview_options?: LinkPreviewOptions;
             reply_markup?: InlineKeyboardMarkup;
@@ -1024,7 +1025,7 @@ export type TelegramMethodMap = {
             message_id?: number;
             inline_message_id?: string;
             caption?: string;
-            parse_mode?: string;
+            parse_mode?: ParseMode;
             caption_entities?: MessageEntity[];
             show_caption_above_media?: boolean;
             reply_markup?: InlineKeyboardMarkup;
@@ -1121,7 +1122,7 @@ export type TelegramMethodMap = {
             gift_id: string;
             pay_for_upgrade?: boolean;
             text?: string;
-            text_parse_mode?: string;
+            text_parse_mode?: ParseMode;
             text_entities?: MessageEntity[];
         };
     };
@@ -1132,7 +1133,7 @@ export type TelegramMethodMap = {
             month_count: number;
             star_count: number;
             text?: string;
-            text_parse_mode?: string;
+            text_parse_mode?: ParseMode;
             text_entities?: MessageEntity[];
         };
     };
@@ -1281,7 +1282,7 @@ export type TelegramMethodMap = {
             content: InputStoryContent;
             active_period: number;
             caption?: string;
-            parse_mode?: string;
+            parse_mode?: ParseMode;
             caption_entities?: MessageEntity[];
             areas?: StoryArea[];
             post_to_chat_page?: boolean;
@@ -1295,7 +1296,7 @@ export type TelegramMethodMap = {
             story_id: number;
             content: InputStoryContent;
             caption?: string;
-            parse_mode?: string;
+            parse_mode?: ParseMode;
             caption_entities?: MessageEntity[];
             areas?: StoryArea[];
         };
@@ -1321,10 +1322,10 @@ export type TelegramMethodMap = {
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
             reply_markup?:
-                | InlineKeyboardMarkup
-                | ReplyKeyboardMarkup
-                | ReplyKeyboardRemove
-                | ForceReply;
+            | InlineKeyboardMarkup
+            | ReplyKeyboardMarkup
+            | ReplyKeyboardRemove
+            | ForceReply;
         };
     };
     getStickerSet: {

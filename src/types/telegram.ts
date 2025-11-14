@@ -372,12 +372,14 @@ export type ExternalReplyInfo = {
     venue?: Venue;
 };
 
+export type ParseMode = "MarkdownV2" | "HTML" | "Markdown"
+
 export type ReplyParameters = {
     message_id: number;
     chat_id?: number | string;
     allow_sending_without_reply?: boolean;
     quote?: string;
-    quote_parse_mode?: string;
+    quote_parse_mode?: ParseMode;
     quote_entities?: MessageEntity[];
     quote_position?: number;
 };
@@ -537,7 +539,7 @@ export type PollOption = {
 
 export type InputPollOption = {
     text: string;
-    text_parse_mode?: string;
+    text_parse_mode?: ParseMode;
     text_entities?: MessageEntity[];
 };
 
@@ -586,13 +588,13 @@ export type Checklist = {
 export type InputChecklistTask = {
     id: number;
     text: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     text_entities?: MessageEntity[];
 };
 
 export type InputChecklist = {
     title: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     title_entities?: MessageEntity[];
     tasks: InputChecklistTask[];
     others_can_add_tasks?: boolean;
@@ -1503,7 +1505,7 @@ export type InputMediaPhoto = {
     type: "photo";
     media: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     show_caption_above_media?: boolean;
     has_spoiler?: boolean;
@@ -1516,7 +1518,7 @@ export type InputMediaVideo = {
     cover?: string;
     start_timestamp?: number;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     show_caption_above_media?: boolean;
     width?: number;
@@ -1531,7 +1533,7 @@ export type InputMediaAnimation = {
     media: string;
     thumbnail?: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     show_caption_above_media?: boolean;
     width?: number;
@@ -1545,7 +1547,7 @@ export type InputMediaAudio = {
     media: string;
     thumbnail?: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     duration?: number;
     performer?: string;
@@ -1557,7 +1559,7 @@ export type InputMediaDocument = {
     media: string;
     thumbnail?: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     disable_content_type_detection?: boolean;
 };
@@ -1714,7 +1716,7 @@ export type InlineQueryResultPhoto = {
     title?: string;
     description?: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     show_caption_above_media?: boolean;
     reply_markup?: InlineKeyboardMarkup;
@@ -1729,7 +1731,7 @@ export type InlineQueryResultVideo = {
     thumbnail_url: string;
     title: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     show_caption_above_media?: boolean;
     video_width?: number;
@@ -1751,7 +1753,7 @@ export type InlineQueryResultGif = {
     thumbnail_mime_type?: string;
     title?: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     show_caption_above_media?: boolean;
     reply_markup?: InlineKeyboardMarkup;
@@ -1769,7 +1771,7 @@ export type InlineQueryResultMpeg4Gif = {
     thumbnail_mime_type?: string;
     title?: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     show_caption_above_media?: boolean;
     reply_markup?: InlineKeyboardMarkup;
@@ -1782,7 +1784,7 @@ export type InlineQueryResultAudio = {
     audio_url: string;
     title: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     performer?: string;
     audio_duration?: number;
@@ -1796,7 +1798,7 @@ export type InlineQueryResultVoice = {
     voice_url: string;
     title: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     voice_duration?: number;
     reply_markup?: InlineKeyboardMarkup;
@@ -1808,7 +1810,7 @@ export type InlineQueryResultDocument = {
     id: string;
     title: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     document_url: string;
     mime_type: "document";
@@ -1883,7 +1885,7 @@ export type InlineQueryResultCachedPhoto = {
     title?: string;
     description?: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     show_caption_above_media?: boolean;
     reply_markup?: InlineKeyboardMarkup;
@@ -1896,7 +1898,7 @@ export type InlineQueryResultCachedGif = {
     gif_file_id: string;
     title?: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     show_caption_above_media?: boolean;
     reply_markup?: InlineKeyboardMarkup;
@@ -1909,7 +1911,7 @@ export type InlineQueryResultCachedMpeg4Gif = {
     mpeg4_file_id: string;
     title?: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     show_caption_above_media?: boolean;
     reply_markup?: InlineKeyboardMarkup;
@@ -1931,7 +1933,7 @@ export type InlineQueryResultCachedDocument = {
     document_file_id: string;
     description?: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     reply_markup?: InlineKeyboardMarkup;
     input_message_content?: InputMessageContent;
@@ -1944,7 +1946,7 @@ export type InlineQueryResultCachedVideo = {
     title: string;
     description?: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     show_caption_above_media?: boolean;
     reply_markup?: InlineKeyboardMarkup;
@@ -1957,7 +1959,7 @@ export type InlineQueryResultCachedVoice = {
     voice_file_id: string;
     title: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     reply_markup?: InlineKeyboardMarkup;
     input_message_content?: InputMessageContent;
@@ -1968,7 +1970,7 @@ export type InlineQueryResultCachedAudio = {
     id: string;
     audio_file_id: string;
     caption?: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     caption_entities?: MessageEntity[];
     reply_markup?: InlineKeyboardMarkup;
     input_message_content?: InputMessageContent;
@@ -1983,7 +1985,7 @@ export type InputMessageContent =
 
 export type InputTextMessageContent = {
     message_text: string;
-    parse_mode?: string;
+    parse_mode?: ParseMode;
     entities?: MessageEntity[];
     link_preview_options?: LinkPreviewOptions;
 };
