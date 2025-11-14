@@ -31,6 +31,7 @@ export class Bot {
     }
 
     private setupEvents() {
+        // Commands like /start (ctx.first.name)
         this.#client.on('message', (msg) => {
             const text = msg.text;
             const entities = msg.entities;
@@ -68,6 +69,20 @@ export class Bot {
 
             if (commands.length) {
                 this.#events.emit('command', { message: msg, commands });
+            }
+        });
+
+        // Callback Query with groups like callback_query:settings
+        this.#client.on('callback_query', (ctx) => {
+            const data = ctx.data;
+            if (!data) return;
+
+            const [groupId, action] = data.split(':');
+
+            if (action) {
+                this.#events.emit(`callback_query:${groupId}`, { ctx, action });
+            } else {
+                this.#events.emit('callback_query', ctx);
             }
         });
     }

@@ -131,7 +131,7 @@ export class CommandContext extends MessageContext {
         this.commands = cmd.commands;
     }
 
-    get first(): Command | undefined {
+    get first(): Command {
         return this.commands[0];
     }
 }
