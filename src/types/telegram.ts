@@ -110,6 +110,10 @@ export type Update = {
     chat_join_request?: ChatJoinRequest;
     chat_boost?: ChatBoostUpdated;
     removed_chat_boost?: ChatBoostRemoved;
+    suggested_post_approval_failed?: Message;
+    suggested_post_declined?: Message;
+    suggested_post_paid?: Message;
+    suggested_post_refunded?: Message;
 };
 
 export type WebhookInfo = {
@@ -150,6 +154,7 @@ export type Chat = {
     first_name?: string;
     last_name?: string;
     is_forum?: true;
+    is_direct_messages: true;
 };
 
 export type ChatFullInfo = {
@@ -198,6 +203,8 @@ export type ChatFullInfo = {
     custom_emoji_sticker_set_name?: string;
     linked_chat_id?: number;
     location?: ChatLocation;
+    is_direct_messages: true;
+    parent_chat?: Chat;
 };
 
 export type Message = {
@@ -293,7 +300,16 @@ export type Message = {
     video_chat_ended?: VideoChatEnded;
     video_chat_participants_invited?: VideoChatParticipantsInvited;
     web_app_data?: WebAppData;
+    reply_to_checklist_task_id?: number;
     reply_markup?: InlineKeyboardMarkup;
+    is_paid_post?: true;
+    suggested_post_info?: SuggestedPostInfo;
+    suggested_post_approved?: SuggestedPostApproved;
+    suggested_post_approval_failed?: SuggestedPostApprovalFailed;
+    suggested_post_declined?: SuggestedPostDeclined;
+    suggested_post_paid?: SuggestedPostPaid;
+    suggested_post_refunded?: SuggestedPostRefunded;
+    direct_messages_topic?: DirectMessagesTopic;
 };
 
 export type MessageId = {
@@ -382,6 +398,7 @@ export type ReplyParameters = {
     quote_parse_mode?: ParseMode;
     quote_entities?: MessageEntity[];
     quote_position?: number;
+    checklist_task_id?: number;
 };
 
 export type MessageOrigin =
@@ -769,6 +786,34 @@ export type DirectMessagePriceChanged = {
     direct_message_star_count?: number;
 };
 
+export type SuggestedPostApproved = {
+    suggested_post_message?: Omit<Message, 'reply_to_message'>;
+    price?: SuggestedPostPrice;
+    send_date: number;
+};
+
+export type SuggestedPostApprovalFailed = {
+    suggested_post_message?: Omit<Message, 'reply_to_message'>;
+    price: SuggestedPostPrice;
+};
+
+export type SuggestedPostDeclined = {
+    suggested_post_message?: Omit<Message, 'reply_to_message'>;
+    comment?: string;
+};
+
+export type SuggestedPostPaid = {
+    suggested_post_message?: Omit<Message, 'reply_to_message'>;
+    currency: "XTR" | "TON";
+    amount?: number;
+    star_amount?: StarAmount;
+};
+
+export type SuggestedPostRefunded = {
+    suggested_post_message?: Omit<Message, 'reply_to_message'>;
+    reason: "post_deleted" | "payment_refunded";
+};
+
 export type GiveawayCreated = {
     prize_star_count?: number;
 };
@@ -813,6 +858,27 @@ export type LinkPreviewOptions = {
     prefer_small_media?: boolean;
     prefer_large_media?: boolean;
     show_above_text?: boolean;
+};
+
+export type SuggestedPostPrice = {
+    currency: "XTR" | "TON";
+    amount: number;
+};
+
+export type SuggestedPostInfo = {
+    state: "pending" | "approved" | "declined";
+    price?: SuggestedPostPrice;
+    send_date?: number;
+};
+
+export type SuggestedPostParameters = {
+    price?: SuggestedPostPrice;
+    send_date?: number;
+};
+
+export type DirectMessagesTopic = {
+    topic_id: number
+    user?: User
 };
 
 export type UserProfilePhotos = {
@@ -966,6 +1032,7 @@ export type ChatAdministratorRights = {
     can_edit_messages?: boolean;
     can_pin_messages?: boolean;
     can_manage_topics?: boolean;
+    can_manage_direct_messages?: boolean;
 };
 
 export type ChatMemberUpdated = {
@@ -1013,6 +1080,7 @@ export type ChatMemberAdministrator = {
     can_edit_messages?: boolean;
     can_pin_messages?: boolean;
     can_manage_topics?: boolean;
+    can_manage_direct_messages?: boolean;
     custom_title?: string;
 };
 
@@ -1226,6 +1294,7 @@ export type Gift = {
     upgrade_star_count?: number;
     total_count?: number;
     remaining_count?: number;
+    publisher_chat: Chat;
 };
 
 export type Gifts = {
@@ -1264,6 +1333,7 @@ export type UniqueGift = {
     model: UniqueGiftModel;
     symbol: UniqueGiftSymbol;
     backdrop: UniqueGiftBackdrop;
+    publisher_chat: Chat;
 };
 
 export type GiftInfo = {

@@ -112,6 +112,7 @@ export type TelegramMethodMap = {
             allow_paid_broadcast?: boolean;
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
+            direct_messages_topic_id?: number;
             reply_markup?:
             | InlineKeyboardMarkup
             | ReplyKeyboardMarkup
@@ -129,6 +130,7 @@ export type TelegramMethodMap = {
             disable_notification?: boolean;
             protect_content?: boolean;
             message_id: number;
+            direct_messages_topic_id?: number;
         };
     };
     forwardMessages: {
@@ -139,6 +141,7 @@ export type TelegramMethodMap = {
             from_chat_id: number | string;
             message_ids: number[];
             disable_notification?: boolean;
+            direct_messages_topic_id?: number;
             protect_content?: boolean;
         };
     };
@@ -157,6 +160,7 @@ export type TelegramMethodMap = {
             disable_notification?: boolean;
             protect_content?: boolean;
             allow_paid_broadcast?: boolean;
+            direct_messages_topic_id?: number;
             reply_parameters?: ReplyParameters;
             reply_markup?:
             | InlineKeyboardMarkup
@@ -175,6 +179,7 @@ export type TelegramMethodMap = {
             disable_notification?: boolean;
             protect_content?: boolean;
             remove_caption?: boolean;
+            direct_messages_topic_id?: number;
         };
     };
     sendPhoto: {
@@ -199,6 +204,7 @@ export type TelegramMethodMap = {
             | ReplyKeyboardMarkup
             | ReplyKeyboardRemove
             | ForceReply;
+            direct_messages_topic_id?: number;
         };
     };
     sendAudio: {
@@ -225,6 +231,7 @@ export type TelegramMethodMap = {
             | ReplyKeyboardMarkup
             | ReplyKeyboardRemove
             | ForceReply;
+            direct_messages_topic_id?: number;
         };
     };
     sendDocument: {
@@ -249,6 +256,7 @@ export type TelegramMethodMap = {
             | ReplyKeyboardMarkup
             | ReplyKeyboardRemove
             | ForceReply;
+            direct_messages_topic_id?: number;
         };
     };
     sendVideo: {
@@ -280,6 +288,7 @@ export type TelegramMethodMap = {
             | ReplyKeyboardMarkup
             | ReplyKeyboardRemove
             | ForceReply;
+            direct_messages_topic_id?: number;
         };
     };
     sendAnimation: {
@@ -308,6 +317,7 @@ export type TelegramMethodMap = {
             | ReplyKeyboardMarkup
             | ReplyKeyboardRemove
             | ForceReply;
+            direct_messages_topic_id?: number;
         };
     };
     sendVoice: {
@@ -331,6 +341,7 @@ export type TelegramMethodMap = {
             | ReplyKeyboardMarkup
             | ReplyKeyboardRemove
             | ForceReply;
+            direct_messages_topic_id?: number;
         };
     };
     sendVideoNote: {
@@ -353,6 +364,7 @@ export type TelegramMethodMap = {
             | ReplyKeyboardMarkup
             | ReplyKeyboardRemove
             | ForceReply;
+            direct_messages_topic_id?: number;
         };
     };
     sendPaidMedia: {
@@ -376,6 +388,7 @@ export type TelegramMethodMap = {
             | ReplyKeyboardMarkup
             | ReplyKeyboardRemove
             | ForceReply;
+            direct_messages_topic_id?: number;
         };
     };
     sendMediaGroup: {
@@ -390,6 +403,7 @@ export type TelegramMethodMap = {
             allow_paid_broadcast?: boolean;
             message_effect_id?: string;
             reply_parameters?: ReplyParameters;
+            direct_messages_topic_id?: number;
         };
     };
     sendLocation: {
@@ -414,6 +428,7 @@ export type TelegramMethodMap = {
             | ReplyKeyboardMarkup
             | ReplyKeyboardRemove
             | ForceReply;
+            direct_messages_topic_id?: number;
         };
     };
     sendVenue: {
@@ -440,6 +455,7 @@ export type TelegramMethodMap = {
             | ReplyKeyboardMarkup
             | ReplyKeyboardRemove
             | ForceReply;
+            direct_messages_topic_id?: number;
         };
     };
     sendContact: {
@@ -462,6 +478,7 @@ export type TelegramMethodMap = {
             | ReplyKeyboardMarkup
             | ReplyKeyboardRemove
             | ForceReply;
+            direct_messages_topic_id?: number;
         };
     };
     sendPoll: {
@@ -494,6 +511,7 @@ export type TelegramMethodMap = {
             | ReplyKeyboardMarkup
             | ReplyKeyboardRemove
             | ForceReply;
+            direct_messages_topic_id?: number;
         };
     };
     sendChecklist: {
@@ -526,6 +544,7 @@ export type TelegramMethodMap = {
             | ReplyKeyboardMarkup
             | ReplyKeyboardRemove
             | ForceReply;
+            direct_messages_topic_id?: number;
         };
     };
     sendChatAction: {
